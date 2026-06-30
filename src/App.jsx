@@ -15,13 +15,17 @@ function App() {
 
   useEffect(() => {
     const getProduits = async () => {
-      const { data } = await supabase.from("produits").select("*");
+      const { data } = await supabase
+        .from("produits")
+        .select("*, categories(nom)");
       setProduits(data);
     };
     getProduits();
   }, []);
   const rechargeProduits = async () => {
-    const { data } = await supabase.from("produits").select("*");
+    const { data } = await supabase
+      .from("produits")
+      .select("*, categories(nom)");
     setProduits(data);
   };
   return (
@@ -49,6 +53,7 @@ function App() {
             nom={produit.nom}
             prix={produit.prix}
             image={produit.image}
+            categorie={produit.categories?.nom}
             onAjouter={() => setPanier(panier + 1)}
             onSupprimer={() => rechargeProduits()}
             onModifier={rechargeProduits}

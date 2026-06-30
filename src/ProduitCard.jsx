@@ -4,6 +4,7 @@ function ProduitCard(props) {
   const [modifier, setModifier] = useState(false);
   const [nom, setNom] = useState(props.nom);
   const [prix, setPrix] = useState(props.prix);
+  const [image, setImage] = useState(props.image);
 
   const handleSupprimer = async () => {
     const confirmer = window.confirm(
@@ -17,17 +18,28 @@ function ProduitCard(props) {
   };
 
   const handleModifier = async () => {
+    let imagesUrl = props.image; // garde l'ancienne image par défaut
+
+    // Si  l'utilisateur a choisi un nouveau fichier (pas juste une chaîne)
+    if (image instanceof File) {
+      const nomFichier = `${Date.now()}-${image.name}`;
+      await supabase.storage.from("images").upload(nomFichier, image);
+      const { data } = supabase.storage.from("images").getPublicUrl(nomFichier);
+      imagesUrl = data.publicUrl;
+    }
     console.log("id :", props.id);
     console.log("nom :", nom);
     console.log("prix :", prix);
-    await supabase.from("produits").update({ nom, prix }).eq("id", props.id);
+    await supabase
+      .from("produits")
+      .update({ nom, prix, image: imagesUrl })
+      .eq("id", props.id);
     props.onModifier();
     setModifier(false);
   };
 
   return (
     <div className="carte">
-      <p className="carte-image">{props.image}</p>
       {modifier ? (
         <>
           <input
@@ -44,6 +56,12 @@ function ProduitCard(props) {
             value={prix}
             onChange={(e) => setPrix(e.target.value)}
           />
+          <input
+            className="input"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
           <button className="btn-sauvegarde" onClick={handleModifier}>
             Sauvegarde
           </button>
@@ -53,7 +71,9 @@ function ProduitCard(props) {
         </>
       ) : (
         <>
+          <img src={props.image} alt={props.nom} className="carte-image-real" />
           <h2>{props.nom}</h2>
+          <p className="carte-categorie">{props.categorie}</p>
           <p className="carte-prix">Prix: {props.prix} FCFA</p>
           <button className="btn-panier" onClick={props.onAjouter}>
             Ajouter au panier

@@ -1,12 +1,30 @@
 import { useState } from "react";
 import { supabase } from "./supabase";
+import Categories from "./Categories";
 
 function AjouterProduit(props) {
   const [nom, setNom] = useState("");
   const [prix, setPrix] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [categorieId, setCategorieId] = useState("");
+  // 1 Upload de l'image dans supabase Storage
   const handleAjouter = async () => {
-    await supabase.from("produits").insert({ nom, prix, image });
+    const fichier = image;
+    const nomFichier = `${Date.now()}-${fichier.name}`;
+
+    const { data: uploadData, error } = await supabase.storage
+      .from("images")
+      .upload(nomFichier, fichier);
+    console.log("upload error:", error);
+    console.log("upload data:", uploadData);
+    //2 Recuperer L'URL publique de l'image
+    const { data } = supabase.storage.from("images").getPublicUrl(nomFichier);
+    const imagesUrl = data.publicUrl;
+
+    // 3. Sauvegarder le produit avec l'URL
+    await supabase
+      .from("produits")
+      .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
     props.onNotification("Produit ajouté avec succès ! ✅", "succes");
     props.onProduitAjouter();
     setNom("");
@@ -32,11 +50,11 @@ function AjouterProduit(props) {
       <br></br>
       <input
         className="input"
-        type="text"
-        placeholder="image (emoji)"
-        onChange={(e) => setImage(e.target.value)}
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files[0])}
       />
-      <br></br>
+      <Categories onChange={setCategorieId} />
       <button className="btn-sauvegarde" onClick={handleAjouter}>
         Ajouter
       </button>
