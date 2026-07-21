@@ -229,3 +229,14 @@ body {
   margin-bottom: 10px;
   background-color: #2a2a2a;
 }
+.nav-link {
+  color: #c9a84c;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
