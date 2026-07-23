@@ -21,6 +21,12 @@ function AjouterProduit(props) {
     const imagesUrl = data.publicUrl;
 
     // 3. Sauvegarder le produit avec l'URL
+    // après
+    const { data: insertData, error: insertError } = await supabase
+      .from("produits")
+      .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
+    console.log("insert error:", insertError);
+    console.log("insert data:", insertData);
     await supabase
       .from("produits")
       .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
