@@ -10,8 +10,7 @@ function AjouterProduit(props) {
   // 1 Upload de l'image dans supabase Storage
   const handleAjouter = async () => {
     const fichier = image;
-    const nomFichier = `${Date.now()}-${fichier.name}`;
-
+    const nomFichier = `${Date.now()}-${fichier.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
     const { data: uploadData, error } = await supabase.storage
       .from("images")
       .upload(nomFichier, fichier);
