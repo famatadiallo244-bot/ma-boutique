@@ -17,7 +17,7 @@ function Produits() {
   const rechargeProduits = async () => {
     const { data } = await supabase
       .from("produits")
-      .select("*, ategories(nom)");
+      .select("*, categories(nom)");
     setProduits(data);
   };
   useEffect(() => {
