@@ -39,20 +39,21 @@ function Produits() {
         </div>
       )}
       <div className="produits">
-        {produits.map((produit) => (
-          <ProduitCard
-            key={produit.id}
-            id={produit.id}
-            nom={produit.nom}
-            prix={produit.prix}
-            image={produit.image}
-            categorie={produit.categories?.nom}
-            onAjouter={() => setPanier(panier + 1)}
-            onSupprimer={() => rechargeProduits()}
-            onModifier={rechargeProduits}
-            onNotification={afficherNotification}
-          />
-        ))}
+        {produits &&
+          produits.map((produit) => (
+            <ProduitCard
+              key={produit.id}
+              id={produit.id}
+              nom={produit.nom}
+              prix={produit.prix}
+              image={produit.image}
+              categorie={produit.categories?.nom}
+              onAjouter={() => setPanier(panier + 1)}
+              onSupprimer={() => rechargeProduits()}
+              onModifier={rechargeProduits}
+              onNotification={afficherNotification}
+            />
+          ))}
       </div>
     </div>
   );
