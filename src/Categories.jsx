@@ -7,7 +7,7 @@ function Categories(props) {
   useEffect(() => {
     const getCategories = async () => {
       const { data } = await supabase.from("categories").select("*");
-      setCategories(data);
+      setCategories(data || []);
     };
     getCategories();
   }, []);
