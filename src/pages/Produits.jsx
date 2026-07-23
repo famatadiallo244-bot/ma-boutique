@@ -15,14 +15,17 @@ function Produits() {
     setTimeout(() => setNotification(""), 3000);
   };
   const rechargeProduits = async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("produits")
       .select("*, categories(nom)");
-    setProduits(data);
+
+    if (error) {
+      console.error("Erreur Supabase:", error);
+      return;
+    }
+
+    setProduits(data || []);
   };
-  useEffect(() => {
-    rechargeProduits();
-  }, [location]);
   return (
     <div>
       <h1 className="entete">Nos Produits 🛍️</h1>
