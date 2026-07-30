@@ -7,35 +7,33 @@ function AjouterProduit(props) {
   const [prix, setPrix] = useState("");
   const [image, setImage] = useState(null);
   const [categorieId, setCategorieId] = useState("");
-  // 1 Upload de l'image dans supabase Storage
+
   const handleAjouter = async () => {
     const fichier = image;
     const nomFichier = `${Date.now()}-${fichier.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
+
     const { data: uploadData, error } = await supabase.storage
       .from("images")
       .upload(nomFichier, fichier);
     console.log("upload error:", error);
     console.log("upload data:", uploadData);
-    //2 Recuperer L'URL publique de l'image
+
     const { data } = supabase.storage.from("images").getPublicUrl(nomFichier);
     const imagesUrl = data.publicUrl;
 
-    // 3. Sauvegarder le produit avec l'URL
-    // après
     const { data: insertData, error: insertError } = await supabase
       .from("produits")
       .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
     console.log("insert error:", insertError);
     console.log("insert data:", insertData);
-    await supabase
-      .from("produits")
-      .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
+
     props.onNotification("Produit ajouté avec succès ! ✅", "succes");
     props.onProduitAjouter();
     setNom("");
     setPrix("");
     setImage("");
   };
+
   return (
     <div className="formulaire">
       <h2>Ajouter un produit</h2>
