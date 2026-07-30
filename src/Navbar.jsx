@@ -3,7 +3,7 @@ function Navbar({ panier }) {
   return (
     <nav className="navbar">
       <p className="navbar-panier">🛒 {panier} article(s)</p>
-      <di>
+      <div>
         <Link to="/" className="nav-link">
           Accueil
         </Link>
@@ -13,7 +13,7 @@ function Navbar({ panier }) {
         <Link to="/ajouter" className="nav-link">
           Ajouter
         </Link>
-      </di>
+      </div>
     </nav>
   );
 }
