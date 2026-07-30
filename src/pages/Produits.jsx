@@ -9,26 +9,34 @@ function Produits() {
   const [panier, setPanier] = useState(0);
   const [notification, setNotification] = useState("");
   const location = useLocation();
+  const [chargement, setChargement] = useState(false);
 
   const afficherNotification = (message, type) => {
     setNotification({ message, type });
     setTimeout(() => setNotification(""), 3000);
   };
   const rechargeProduits = async () => {
+    setChargement(true);
     const { data, error } = await supabase
       .from("produits")
       .select("*, categories(nom)");
 
     if (error) {
       console.error("Erreur Supabase:", error);
+      setChargement(false);
       return;
     }
 
     setProduits(data || []);
+    setChargement(false);
   };
+
+  useEffect(() => {
+    rechargeProduits();
+  }, [location]);
   return (
     <div>
-      <h1 className="entete">Nos Produits 🛍️</h1>
+      {chargement && <p className="entete">Chargement...</p>}
       <p className="panier">🛒 {panier} article(s)</p>
       {notification && (
         <div
