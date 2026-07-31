@@ -23,7 +23,12 @@ function AjouterProduit(props) {
 
     const { data: insertData, error: insertError } = await supabase
       .from("produits")
-      .insert({ nom, prix, image: imagesUrl, categorie_id: categorieId });
+      .insert({
+        nom,
+        prix: Number(prix),
+        image: imagesUrl,
+        categorie_id: categorieId,
+      });
     console.log("insert error:", insertError);
     console.log("insert data:", insertData);
 
