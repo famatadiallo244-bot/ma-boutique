@@ -10,6 +10,15 @@ function Produits() {
   const [notification, setNotification] = useState("");
   const location = useLocation();
   const [chargement, setChargement] = useState(false);
+  const [recherche, setRecherche] = useState("");
+  const [categorieFiltre, setCategorieFiltre] = useState("");
+
+  const produitsFiltres = produits.filter(
+    (produit) =>
+      produit.nom.toLowerCase().includes(recherche.toLowerCase()) &&
+      (categorieFiltre === "" ||
+        produit.categorie_id === Number(categorieFiltre)),
+  );
 
   const afficherNotification = (message, type) => {
     setNotification({ message, type });
@@ -49,9 +58,16 @@ function Produits() {
           {notification.message}
         </div>
       )}
+      <input
+        className="input"
+        type="text"
+        placeholder="🔍 Rechercher un produit..."
+        onChange={(e) => setRecherche(e.target.value)}
+      />
+      <Categories onChange={setCategorieFiltre} />
       <div className="produits">
         {produits &&
-          produits.map((produit) => (
+          produitsFiltres.map((produit) => (
             <ProduitCard
               key={produit.id}
               id={produit.id}
