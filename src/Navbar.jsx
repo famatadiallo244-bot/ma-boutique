@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { supabase } from "./supabase";
 
-function Navbar({ panier }) {
+function Navbar({ panier, user }) {
+  const handleDeconnexion = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <nav className="navbar">
       <div>
@@ -16,6 +21,15 @@ function Navbar({ panier }) {
         <Link to="/panier" className="nav-link">
           🛒 {panier.reduce((total, p) => total + p.quantite, 0)} article(s)
         </Link>
+        {user ? (
+          <button className="btn-supprimer" onClick={handleDeconnexion}>
+            Déconnexion
+          </button>
+        ) : (
+          <Link to="/ajouter" className="nav-link">
+            Connexion
+          </Link>
+        )}
       </div>
     </nav>
   );
