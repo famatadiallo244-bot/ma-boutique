@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Accueil from "./pages/Accueil";
 import Produits from "./pages/Produits";
 import AjouterProduit from "./pages/AjouterProduit";
+import Panier from "./pages/Panier";
 
 function App() {
   const [panier, setPanier] = useState([]);
@@ -20,6 +21,7 @@ function App() {
       setPanier([...panier, { ...produit, quantite: 1 }]);
     }
   };
+
   return (
     <div>
       <Navbar panier={panier} />
@@ -30,6 +32,10 @@ function App() {
           element={<Produits ajouterAuPanier={ajouterAuPanier} />}
         />
         <Route path="/ajouter" element={<AjouterProduit />} />
+        <Route
+          path="/panier"
+          element={<Panier panier={panier} setPanier={setPanier} />}
+        />
       </Routes>
     </div>
   );

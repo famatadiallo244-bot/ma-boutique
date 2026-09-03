@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
+
 function Navbar({ panier }) {
   return (
     <nav className="navbar">
-      <p className="navbar-panier">
-        🛒 {panier.reduce((total, p) => total + p.quantite, 0)} article(s)
-      </p>
       <div>
         <Link to="/" className="nav-link">
           Accueil
@@ -14,6 +12,9 @@ function Navbar({ panier }) {
         </Link>
         <Link to="/ajouter" className="nav-link">
           Ajouter
+        </Link>
+        <Link to="/panier" className="nav-link">
+          🛒 {panier.reduce((total, p) => total + p.quantite, 0)} article(s)
         </Link>
       </div>
     </nav>
