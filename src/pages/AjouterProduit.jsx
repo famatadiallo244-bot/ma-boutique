@@ -19,23 +19,25 @@ function AjouterProduit() {
   };
 
   return (
-    <div>
-      <h1 className="entete">Ajouter un produit</h1>
-      {notification && (
-        <div
-          className={
-            notification.type === "succes"
-              ? "notification-succes"
-              : "notification-erreur"
-          }
-        >
-          {notification.message}
-        </div>
-      )}
-      <AjouterProduitForm
-        onProduitAjouter={rechargeProduits}
-        onNotification={afficherNotification}
-      />
+    <div className="page-centre">
+      <div className="formulaire">
+        <h1 className="entete">Ajouter un produit</h1>
+        {notification && (
+          <div
+            className={
+              notification.type === "succes"
+                ? "notification-succes"
+                : "notification-erreur"
+            }
+          >
+            {notification.message}
+          </div>
+        )}
+        <AjouterProduitForm
+          onProduitAjouter={rechargeProduits}
+          onNotification={afficherNotification}
+        />
+      </div>
     </div>
   );
 }
