@@ -391,3 +391,9 @@ body {
   display: block;
   margin-bottom: 15px;
 }
+.nav-link-actif {
+  color: #0f0f0f !important;
+  background-color: #c9a84c;
+  padding: 6px 12px;
+  border-radius: 20px;
+}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { supabase } from "./supabase";
 
 function Navbar({ panier, user }) {
@@ -9,18 +9,39 @@ function Navbar({ panier, user }) {
   return (
     <nav className="navbar">
       <div className="navbar-liens">
-        <Link to="/" className="nav-link">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "nav-link nav-link-actif" : "nav-link"
+          }
+          end
+        >
           Accueil
-        </Link>
-        <Link to="/produits" className="nav-link">
+        </NavLink>
+        <NavLink
+          to="/produits"
+          className={({ isActive }) =>
+            isActive ? "nav-link nav-link-actif" : "nav-link"
+          }
+        >
           Produits
-        </Link>
-        <Link to="/ajouter" className="nav-link">
+        </NavLink>
+        <NavLink
+          to="/ajouter"
+          className={({ isActive }) =>
+            isActive ? "nav-link nav-link-actif" : "nav-link"
+          }
+        >
           Ajouter
-        </Link>
-        <Link to="/panier" className="nav-link">
+        </NavLink>
+        <NavLink
+          to="/panier"
+          className={({ isActive }) =>
+            isActive ? "nav-link nav-link-actif" : "nav-link"
+          }
+        >
           🛒 {panier.reduce((total, p) => total + p.quantite, 0)} article(s)
-        </Link>
+        </NavLink>
       </div>
       <div className="navbar-auth">
         {user ? (
@@ -28,9 +49,9 @@ function Navbar({ panier, user }) {
             Déconnexion
           </button>
         ) : (
-          <Link to="/ajouter" className="nav-link-connexion">
+          <NavLink to="/ajouter" className="nav-link-connexion">
             Connexion
-          </Link>
+          </NavLink>
         )}
       </div>
     </nav>
