@@ -1,26 +1,32 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Connexion() {
+function Inscription() {
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState("");
+  const [succes, setSucces] = useState("");
+  const navigate = useNavigate();
 
-  const handleConnexion = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
+  const handleInscription = async () => {
+    const { error } = await supabase.auth.signUp({
       email,
       password: motDePasse,
     });
     if (error) {
-      setErreur("Email ou mot de passe incorrect !");
+      setErreur("Erreur lors de l'inscription !");
+    } else {
+      setSucces("Compte créé ! Vérifiez votre email pour confirmer !");
+      setTimeout(() => navigate("/ajouter"), 3000);
     }
   };
 
   return (
     <div className="formulaire">
-      <h2>Connexion</h2>
+      <h2>Inscription</h2>
       {erreur && <p style={{ color: "red" }}>{erreur}</p>}
+      {succes && <p style={{ color: "green" }}>{succes}</p>}
       <input
         className="input"
         type="email"
@@ -33,16 +39,10 @@ function Connexion() {
         placeholder="Mot de passe"
         onChange={(e) => setMotDePasse(e.target.value)}
       />
-      <button className="btn-sauvegarde" onClick={handleConnexion}>
-        Se connecter
+      <button className="btn-sauvegarde" onClick={handleInscription}>
+        S'inscrire
       </button>
-      <p>
-        Pas encore de compte ?{" "}
-        <Link to="/inscription" className="nav-link">
-          S'inscrire
-        </Link>
-      </p>
     </div>
   );
 }
-export default Connexion;
+export default Inscription;

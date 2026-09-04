@@ -8,6 +8,7 @@ import AjouterProduit from "./pages/AjouterProduit";
 import Panier from "./pages/Panier";
 import Connexion from "./pages/Connexion";
 import DetailProduit from "./pages/DetailProduit";
+import Inscription from "./pages/Inscription";
 
 function App() {
   const [panier, setPanier] = useState([]);
@@ -61,6 +62,7 @@ function App() {
           path="/produits/:id"
           element={<DetailProduit ajouterAuPanier={ajouterAuPanier} />}
         />
+        <Route path="/inscription" element={<Inscription />} />
       </Routes>
     </div>
   );
