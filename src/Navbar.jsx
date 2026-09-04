@@ -8,7 +8,7 @@ function Navbar({ panier, user }) {
 
   return (
     <nav className="navbar">
-      <div>
+      <div className="navbar-liens">
         <Link to="/" className="nav-link">
           Accueil
         </Link>
@@ -21,12 +21,14 @@ function Navbar({ panier, user }) {
         <Link to="/panier" className="nav-link">
           🛒 {panier.reduce((total, p) => total + p.quantite, 0)} article(s)
         </Link>
+      </div>
+      <div className="navbar-auth">
         {user ? (
-          <button className="btn-supprimer" onClick={handleDeconnexion}>
+          <button className="btn-deconnexion" onClick={handleDeconnexion}>
             Déconnexion
           </button>
         ) : (
-          <Link to="/ajouter" className="nav-link">
+          <Link to="/ajouter" className="nav-link-connexion">
             Connexion
           </Link>
         )}
