@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
-import { useLocation } from "react-router-dom";
 import ProduitCard from "../ProduitCard";
 import Categories from "../Categories";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function Produits({ ajouterAuPanier }) {
   const [produits, setProduits] = useState([]);
@@ -10,7 +10,10 @@ function Produits({ ajouterAuPanier }) {
   const location = useLocation();
   const [chargement, setChargement] = useState(false);
   const [recherche, setRecherche] = useState("");
-  const [categorieFiltre, setCategorieFiltre] = useState("");
+  const [searchParams] = useSearchParams();
+  const [categorieFiltre, setCategorieFiltre] = useState(
+    searchParams.get("categorie") || "",
+  );
 
   const produitsFiltres = produits.filter(
     (produit) =>

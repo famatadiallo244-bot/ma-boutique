@@ -14,17 +14,25 @@ function Accueil() {
           Voir les produits
         </button>
       </div>
-
       <div className="categories-accueil">
-        <div className="categorie-card" onClick={() => navigate("/produits")}>
+        <div
+          className="categorie-card"
+          onClick={() => navigate("/produits?categorie=1")}
+        >
           <span className="categorie-emoji">👗</span>
           <h3>Vêtements</h3>
         </div>
-        <div className="categorie-card" onClick={() => navigate("/produits")}>
+        <div
+          className="categorie-card"
+          onClick={() => navigate("/produits?categorie=3")}
+        >
           <span className="categorie-emoji">👟</span>
           <h3>Chaussures</h3>
         </div>
-        <div className="categorie-card" onClick={() => navigate("/produits")}>
+        <div
+          className="categorie-card"
+          onClick={() => navigate("/produits?categorie=2")}
+        >
           <span className="categorie-emoji">👜</span>
           <h3>Accessoires</h3>
         </div>
