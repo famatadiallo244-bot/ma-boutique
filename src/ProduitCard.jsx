@@ -1,10 +1,13 @@
 import { supabase } from "./supabase";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function ProduitCard(props) {
   const [modifier, setModifier] = useState(false);
   const [nom, setNom] = useState(props.nom);
   const [prix, setPrix] = useState(props.prix);
   const [image, setImage] = useState(props.image);
+  const navigate = useNavigate();
 
   const handleSupprimer = async () => {
     const confirmer = window.confirm(
@@ -77,6 +80,12 @@ function ProduitCard(props) {
           <p className="carte-prix">Prix: {props.prix} FCFA</p>
           <button className="btn-panier" onClick={props.onAjouter}>
             Ajouter au panier
+          </button>
+          <button
+            className="btn-modifier"
+            onClick={() => navigate(`/produits/${props.id}`)}
+          >
+            Voir détail
           </button>
           <button className="btn-modifier" onClick={() => setModifier(true)}>
             Modifier

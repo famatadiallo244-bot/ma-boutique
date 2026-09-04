@@ -7,6 +7,7 @@ import Produits from "./pages/Produits";
 import AjouterProduit from "./pages/AjouterProduit";
 import Panier from "./pages/Panier";
 import Connexion from "./pages/Connexion";
+import DetailProduit from "./pages/DetailProduit";
 
 function App() {
   const [panier, setPanier] = useState([]);
@@ -55,6 +56,10 @@ function App() {
         <Route
           path="/panier"
           element={<Panier panier={panier} setPanier={setPanier} />}
+        />
+        <Route
+          path="/produits/:id"
+          element={<DetailProduit ajouterAuPanier={ajouterAuPanier} />}
         />
       </Routes>
     </div>
