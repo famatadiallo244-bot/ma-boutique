@@ -158,13 +158,13 @@ body {
 .input {
   display: block;
   width: 100%;
-  padding: 10px;
-  margin: 6px 0;
+  padding: 14px;
+  margin: 10px 0;
   border: 1px solid #2a2a2a;
   border-radius: 8px;
   background-color: #0f0f0f;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
 }
 .input:focus {
   outline: none;
@@ -173,16 +173,18 @@ body {
 .formulaire {
   background-color: #1a1a1a;
   border-radius: 15px;
-  padding: 25px;
-  max-width: 400px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
   border: 1px solid #2a2a2a;
-  margin: 20px auto;
+  margin: 50px auto;
 }
 .formulaire h2 {
   color: #c9a84c;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
   letter-spacing: 2px;
+  font-size: 28px;
 }
 .notification-succes {
   position: fixed;
