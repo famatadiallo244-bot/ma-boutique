@@ -195,11 +195,14 @@ body {
 .formulaire {
   background-color: #1a1a1a;
   border-radius: 15px;
-  padding: 40px;
+  padding: 50px 40px;
   max-width: 500px;
   width: 100%;
   border: 1px solid #2a2a2a;
   margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .formulaire h2 {
   color: #c9a84c;
